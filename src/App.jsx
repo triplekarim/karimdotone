@@ -31,26 +31,78 @@ function App() {
           transparent
         /> */}
 
-        <Waves
-          lineColor="#1a1b00ff"
-          backgroundColor="rgba(0, 0, 0, 1)"
-          waveSpeedX={0.02}
-          waveSpeedY={0.01}
-          waveAmpX={40}
-          waveAmpY={20}
-          friction={0.7}
-          tension={0.01}
-          maxCursorMove={240}
-          xGap={32}
-          yGap={48}
-        />
+        <div style={{ position: "fixed", inset: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none" }}>
+          <Waves
+            lineColor="#1a1b00ff"
+            backgroundColor="rgba(0, 0, 0, 1)"
+            waveSpeedX={0.02}
+            waveSpeedY={0.01}
+            waveAmpX={40}
+            waveAmpY={20}
+            friction={0.7}
+            tension={0.01}
+            maxCursorMove={240}
+            xGap={32}
+            yGap={48}
+          />
+        </div>
 
-        <div className="main-content">
-          <section className="hero">
-            <div className="hero-content">
-              <h1>.karim</h1>
+        <div className="main-content" style={{ position: "relative", zIndex: 1 }}>
+          <h1>.karim</h1>
 
-              
+          <section className="dynamic-layout">
+            <div className="dynamic-layout-item">Computer Science Student</div>
+
+            <div className="dynamic-layout-item">
+              I like:
+              <div className="item-frame">
+                <ul>
+                  <li>Coding</li>
+                  <li>Music</li>
+                  <li>Gaming</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="dynamic-layout-item">
+              <img src="" alt="" />
+              My Ducks
+            </div>
+
+            <div className="dynamic-layout-item">
+              I support:
+              <div className="item-frame">
+                <ul>
+                  <li>Item 1</li>
+                  <li>Item 2</li>
+                  <li>Item 3</li>
+                  <li>Item 4</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="dynamic-layout-item">
+              <img
+                src="src/assets/germanyflag.jpg"
+                alt=""
+                className="item-img-small"
+              />
+            </div>
+
+            <div className="dynamic-layout-item">
+              Super Professional Roblox Developer
+            </div>
+
+            <div className="dynamic-layout-item">
+              Get in contact:
+              <div>me@karim.one</div>
+            </div>
+
+            <div className="dynamic-layout-item">
+              <div className="img-frame-medium">
+                <img src="" alt="" />
+              </div>
+              Random Meme
             </div>
           </section>
         </div>
