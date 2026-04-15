@@ -54,57 +54,6 @@ function App() {
           <section className="dynamic-layout">
             <div className="dynamic-layout-item">Computer Science Student</div>
 
-            <div className="dynamic-layout-item">
-              I like:
-              <div className="item-frame">
-                <ul>
-                  <li>Coding</li>
-                  <li>Music</li>
-                  <li>Gaming</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="dynamic-layout-item">
-              <img src="" alt="" />
-              My Ducks
-            </div>
-
-            <div className="dynamic-layout-item">
-              I support:
-              <div className="item-frame">
-                <ul>
-                  <li>Item 1</li>
-                  <li>Item 2</li>
-                  <li>Item 3</li>
-                  <li>Item 4</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="dynamic-layout-item">
-              <img
-                src="src/assets/germanyflag.jpg"
-                alt=""
-                className="item-img-small"
-              />
-            </div>
-
-            <div className="dynamic-layout-item">
-              Super Professional Roblox Developer
-            </div>
-
-            <div className="dynamic-layout-item">
-              Get in contact:
-              <div>me@karim.one</div>
-            </div>
-
-            <div className="dynamic-layout-item">
-              <div className="img-frame-medium">
-                <img src="" alt="" />
-              </div>
-              Random Meme
-            </div>
           </section>
         </div>
       </div>
