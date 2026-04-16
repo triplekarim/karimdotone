@@ -49,11 +49,15 @@ function App() {
 
         <div className="main-content" style={{ position: "relative", zIndex: 1 }}>
           <h1>Hi, I'm Karim</h1>
-          <h2>(The one and only)</h2>
+          <h2>(The .one and only)</h2>
 
           <section className="dynamic-layout">
             <div className="dynamic-layout-item">Computer Science Student</div>
-
+            <div>Tübingen, Germany</div>
+            <div className="horizontal-list">
+              <a href="https://github.com/triplekarim">My Github</a>
+              <a href="mailto:karim@triplemanta.com">My E-Mail</a>
+            </div>
           </section>
         </div>
       </div>
