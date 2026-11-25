@@ -45,7 +45,9 @@ const { title, heading, description } = Astro.props;
       <slot name="en" />
     </div>
 
-    <script is:inline>
+    <!-- data-astro-rerun: the client router skips inline scripts it has already run once in this visit,
+         which left the switch dead after Back or after going from one legal page to the other -->
+    <script is:inline data-astro-rerun>
       // Runs right after the markup (before first paint) so the chosen language never flashes.
       // Picks the saved choice, else the browser language; without JS the German text shows.
       // The choice is shared between all legal pages.
