@@ -1,0 +1,452 @@
+---
+import { Image } from "astro:assets";
+import Icon, { type IconName } from "./Icon.astro";
+import profile from "../assets/profile.webp";
+import { SITE } from "../site";
+
+const facts: { icon: IconName; label: string; value: string }[] = [
+  { icon: "cap", label: "Studying", value: "Computer Science" },
+  { icon: "pin", label: "Based in", value: SITE.location },
+  { icon: "gamepad", label: "Company", value: "tripleManta" },
+];
+
+const setup: { label: string; value: string }[] = [
+  { label: "OS", value: "Fedora + KDE Plasma" },
+  { label: "Browser", value: "Firefox + uBlock Origin" },
+  { label: "Shell", value: "fish + tide" },
+  { label: "Favourite Language", value: "Lua (Roblox)" },
+];
+
+const homelab = ["Raspberry Pi 5", "Docker", "Portainer", "Home Assistant", "Jellyfin", "LaraPaper"];
+
+// size: how big the word is in the cloud. note: optional small aside.
+const interests: { name: string; size: "l" | "m" | "s"; note?: string }[] = [
+  { name: "Linux", size: "s", note: "Fedora, KDE" },
+  { name: "anything open source", size: "m"},
+  { name: "Self-hosting", size: "l"},
+  { name: "Digital sovereignty", size: "s", note: "no more big tech" },
+  { name: "Split keyboards", size: "m", note: "mechanical ofc" },
+  { name: "Home Assistant", size: "m" },
+  { name: "Cars", size: "s" },
+  { name: "Soldering", size: "s", note: "(i suck at it tho)"},
+  { name: "Tinkering", size: "l" },
+  { name: "Women", size: "s" },
+  { name: "Ducks", size: "l" },
+  { name: "Calisthenics", size: "m" },
+  { name: "Reading", size: "s" },
+];
+---
+
+<section id="about" class="section about">
+  <div class="ambient" style="left: -22rem; top: 0;" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="section-index">01 — About</p>
+        <h2 class="gradient-text">Who I am</h2>
+      </div>
+    </div>
+
+    <div class="about-grid" data-reveal-stagger>
+      <article class="bio" data-reveal>
+        <div class="bio-head">
+          <div class="photo">
+            <Image src={profile} alt="Karim's avatar" width={240} height={240} loading="lazy" />
+          </div>
+          <div>
+            <p class="bio-name">Karim Güzel</p>
+            <p class="bio-role">{SITE.role}</p>
+          </div>
+        </div>
+
+        <div class="bio-text">
+          <p class="lead">Hey, I'm Karim. I love creating (anything, really).</p>
+          <p>
+            I run <a href="https://triplemanta.com" target="_blank" rel="noopener noreferrer">tripleManta</a>, a small studio that makes games and
+            sells tools to other roblox devs, like our triton game framework or our state-of-the-art weapon system.
+          </p>
+          <p>
+            The rest of the time I'm usually tinkering: soldering something, bricking my laptop (stay away from arm laptops if you value your sanity) or completely taking apart my car because I found a marginally better part on kleinanzeigen (the german version of facebook marketplace).
+          </p>
+        </div>
+
+        <dl class="facts">
+          {
+            facts.map((f) => (
+              <div class="fact">
+                <span class="fact-icon">
+                  <Icon name={f.icon} />
+                </span>
+                <div>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              </div>
+            ))
+          }
+        </dl>
+      </article>
+
+      <div class="side">
+        <aside class="side-card" data-reveal>
+          <p class="card-title">My Setup</p>
+          <dl class="kv">
+            {
+              setup.map((s) => (
+                <div>
+                  <dt>{s.label}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </aside>
+
+        <aside class="side-card" data-reveal>
+          <p class="card-title">Homelab</p>
+          <ul class="tag-list">
+            {homelab.map((h) => <li class="tag">{h}</li>)}
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+    <div class="interests" data-reveal>
+      <p class="card-title">Things I'm into</p>
+      <ul class="cloud">
+        {
+          interests.map((i, n) => (
+            <li class:list={["word", `word-${i.size}`]} data-word>
+              <span
+                class="word-float"
+                style={`--fx: ${((n * 37) % 9) - 4}px; --fy: ${6 + ((n * 53) % 7)}px; --fd: ${5 + ((n * 29) % 5)}s; --fdl: -${(n * 1.3) % 5}s`}
+              >
+                <span class="word-name">{i.name}</span>
+                {i.note && <span class="word-note">{i.note}</span>}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .bio {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .bio-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .photo {
+    width: 4.5rem;
+    aspect-ratio: 1;
+    flex: none;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--accent-900);
+    box-shadow: 0 16px 40px -18px var(--glow);
+  }
+
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bio-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+  }
+
+  .bio-role {
+    color: var(--text-faint);
+    font-size: 0.875rem;
+  }
+
+  .bio-text {
+    display: grid;
+    gap: 1rem;
+    max-width: 38rem;
+    color: var(--text-muted);
+  }
+
+  .lead {
+    color: var(--text);
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin: auto 0 0;
+  }
+
+  .fact {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .fact-icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    border-radius: var(--r-sm);
+    background: rgba(109, 40, 217, 0.14);
+    color: var(--accent-300);
+  }
+
+  dt {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+
+  dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .side {
+    display: grid;
+    gap: 2.5rem;
+    align-content: start;
+  }
+
+  .card-title {
+    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .kv {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .kv div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  .kv dt {
+    font-size: 0.875rem;
+  }
+
+  .kv dd {
+    text-align: right;
+    font-size: 0.875rem;
+  }
+
+  /* ---------- free-form interest cloud ---------- */
+  .interests {
+    margin-top: clamp(5rem, 10vw, 8rem);
+    padding-block: clamp(1rem, 3vw, 2rem);
+    text-align: center;
+  }
+
+  .interests .card-title {
+    margin-bottom: 2rem;
+  }
+
+  .cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem 2.5rem;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .word {
+    display: inline-flex;
+    will-change: transform;
+  }
+
+  /* slow idle drift; each word gets its own offset, duration and phase */
+  .word-float {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    animation: float var(--fd, 6s) ease-in-out var(--fdl, 0s) infinite alternate;
+  }
+
+  @keyframes float {
+    from {
+      transform: translate(calc(var(--fx) * -1), calc(var(--fy) * -0.5));
+    }
+    to {
+      transform: translate(var(--fx), var(--fy));
+    }
+  }
+
+  .word-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--text-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .word:hover .word-name {
+    color: var(--text);
+  }
+
+  .word-l .word-name {
+    font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+    color: var(--text);
+  }
+
+  .word-m .word-name {
+    font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  }
+
+  .word-s .word-name {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--text-faint);
+  }
+
+  .word-note {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 52rem) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .word-float {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Words in the interest cloud get nudged away from the cursor, then spring back.
+  const RADIUS = 180; // px of influence around the pointer
+  const PUSH = 14; // max displacement in px
+  const CORE = 70; // px; push fades out near the word's centre so hovering it stays calm
+
+  let cleanup: (() => void) | undefined;
+
+  function init() {
+    cleanup?.();
+    cleanup = undefined;
+    const cloud = document.querySelector<HTMLElement>(".cloud");
+    if (!cloud || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!matchMedia("(pointer: fine)").matches) return;
+
+    const words = [...cloud.querySelectorAll<HTMLElement>("[data-word]")].map((el) => ({
+      el,
+      x: 0,
+      y: 0,
+      vx: 0,
+      vy: 0,
+      tx: 0,
+      ty: 0,
+    }));
+    let pointer: { x: number; y: number } | null = null;
+    let raf = 0;
+    let visible = false;
+
+    const tick = () => {
+      raf = 0;
+      let moving = false;
+      for (const w of words) {
+        w.tx = 0;
+        w.ty = 0;
+        if (pointer) {
+          // centre of the word in its resting position
+          const r = w.el.getBoundingClientRect();
+          const cx = r.left + r.width / 2 - w.x;
+          const cy = r.top + r.height / 2 - w.y;
+          const dx = cx - pointer.x;
+          const dy = cy - pointer.y;
+          const d = Math.hypot(dx, dy) || 1;
+          const t = Math.max(0, 1 - d / RADIUS);
+          const f = t * t * (3 - 2 * t) * (d / (d + CORE));
+          w.tx = (dx / d) * PUSH * f;
+          w.ty = (dy / d) * PUSH * f;
+        }
+        // damped spring toward the target
+        w.vx = (w.vx + (w.tx - w.x) * 0.05) * 0.86;
+        w.vy = (w.vy + (w.ty - w.y) * 0.05) * 0.86;
+        w.x += w.vx;
+        w.y += w.vy;
+        if (Math.abs(w.vx) + Math.abs(w.vy) + Math.abs(w.tx - w.x) + Math.abs(w.ty - w.y) > 0.05) moving = true;
+        w.el.style.transform = `translate(${w.x.toFixed(2)}px, ${w.y.toFixed(2)}px)`;
+      }
+      if (moving && visible) raf = requestAnimationFrame(tick);
+    };
+    const wake = () => {
+      if (!raf && visible) raf = requestAnimationFrame(tick);
+    };
+
+    const onMove = (e: PointerEvent) => {
+      pointer = { x: e.clientX, y: e.clientY };
+      wake();
+    };
+    const onLeave = () => {
+      pointer = null;
+      wake();
+    };
+
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) wake();
+    });
+    io.observe(cloud);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onLeave);
+
+    cleanup = () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
+    };
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanup?.();
+    cleanup = undefined;
+  });
+</script>

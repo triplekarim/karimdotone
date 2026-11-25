@@ -1,0 +1,72 @@
+---
+import Icon from "./Icon.astro";
+import { SITE } from "../site";
+
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <p class="footer-copy">© {year} {SITE.business}</p>
+      <span aria-hidden="true">·</span>
+      <a class="footer-legal" href="/imprint">Imprint</a>
+    </div>
+    <ul class="footer-links">
+      <li>
+        <a class="btn btn-primary" href={`mailto:${SITE.email}`}><Icon name="mail" /> E-Mail</a>
+      </li>
+      <li>
+        <a class="btn" href={SITE.github} target="_blank" rel="noopener noreferrer"><Icon name="github" /> GitHub</a>
+      </li>
+      <li>
+        <a class="btn" href="/rss.xml"><Icon name="rss" /> RSS</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: 4rem 2rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .footer-left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    color: var(--text-faint);
+    font-size: 0.8125rem;
+  }
+
+  .footer-legal {
+    color: var(--text-faint);
+  }
+
+  .footer-legal:hover {
+    color: #fff;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-links .btn {
+    padding: 0.75rem 1.2rem;
+    font-size: 0.875rem;
+  }
+</style>

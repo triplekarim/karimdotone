@@ -1,0 +1,56 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import "../styles/prose.css";
+import { SITE } from "../site";
+
+/*
+ * TODO before going live: fill in the [bracketed] placeholders.
+ * § 5 DDG requires a full postal address (no P.O. box). Have a quick look at
+ * whether you need a VAT ID line; delete it if not.
+ */
+---
+
+<Base title="Imprint" description="Legal notice (Impressum) for karim.one.">
+  <PageHeader title="Imprint." />
+  <section class="container imprint">
+    <div class="prose">
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        {SITE.business}<br />
+        Karim Güzel<br />
+        [Straße Hausnummer]<br />
+        [PLZ] Tübingen<br />
+        Deutschland
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>E-Mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+
+      <!-- Delete if you don't have one -->
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [DE…]</p>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>
+        Karim Güzel<br />
+        [Anschrift wie oben]
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .imprint {
+    padding-bottom: 4rem;
+  }
+
+  .imprint .prose {
+    max-width: 46rem;
+  }
+
+  .imprint .prose h2 {
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+</style>

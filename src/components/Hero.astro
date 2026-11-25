@@ -1,0 +1,220 @@
+---
+import TextReveal from "./TextReveal.astro";
+import HeroBackground from "./HeroBackground.jsx";
+import MagneticButton from "./MagneticButton.jsx";
+import Icon from "./Icon.astro";
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-art" aria-hidden="true">
+    <HeroBackground client:only="react" />
+  </div>
+
+  <div class="hero-copy">
+    <p class="hero-hi">Hi, I'm</p>
+    <h1 id="hero-title" class="hero-title">
+      <TextReveal text="karim." delay={150} stagger={45} />
+    </h1>
+    <p class="hero-sub">(The <span class="accent">.one</span> and only.)</p>
+
+    <div class="hero-cta">
+      <MagneticButton client:visible href="/projects" variant="primary">
+        View projects <Icon name="arrow-right" />
+      </MagneticButton>
+      <MagneticButton client:visible href="/blog">Read the blog</MagneticButton>
+    </div>
+  </div>
+
+  <a href="#about" class="scroll-hint" aria-label="Scroll to about">
+    <span></span>
+  </a>
+</section>
+
+<script>
+  // Hold the headline until the ASCII background has started fading in.
+  const HOLD_MS = 700; // let the background lead a little
+  const FALLBACK_MS = 1800; // no WebGL2 / slow load: start anyway
+
+  function init() {
+    const hero = document.querySelector<HTMLElement>(".hero");
+    if (!hero || hero.dataset.heroInit) return;
+    hero.dataset.heroInit = "1";
+    const go = () => hero.classList.add("is-ready");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return go();
+
+    const fallback = setTimeout(go, FALLBACK_MS);
+    document.addEventListener(
+      "hero:bg-ready",
+      () => {
+        clearTimeout(fallback);
+        setTimeout(go, HOLD_MS);
+      },
+      { once: true },
+    );
+  }
+
+  // run now (first load) and after every client-side navigation
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: 5rem var(--gutter, 1.5rem) 5rem;
+  }
+
+  /* everything waits (paused at its first frame) until .is-ready */
+  .hero:not(.is-ready) .hero-copy :global(*),
+  .hero:not(.is-ready) .scroll-hint,
+  .hero:not(.is-ready) .scroll-hint span {
+    animation-play-state: paused;
+  }
+
+  :global(.no-js) .hero:not(.is-ready) .hero-copy :global(*),
+  :global(.no-js) .hero:not(.is-ready) .scroll-hint,
+  :global(.no-js) .hero:not(.is-ready) .scroll-hint span {
+    animation-play-state: running;
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* left-aligned text, block centred by the grid */
+  }
+
+  .hero-hi {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.4rem, 3vw, 2.25rem);
+    letter-spacing: -0.02em;
+    color: var(--text-muted);
+    animation: fade-up 1s var(--ease-out) backwards;
+  }
+
+  .hero-title {
+    margin-top: clamp(0.4rem, 0.8vw, 0.75rem);
+    /* pull the k back by its side bearing so it lines up with the text below */
+    margin-left: -0.06em;
+    font-size: clamp(4.75rem, 16vw, 12.5rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.055em;
+  }
+
+  .hero-sub {
+    margin-top: clamp(1rem, 1.4vw, 1.4rem);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+    letter-spacing: -0.02em;
+    color: var(--text-muted);
+    animation: fade-up 1s var(--ease-out) 550ms backwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: clamp(1.75rem, 2.4vw, 2.25rem);
+    animation: fade-up 1s var(--ease-out) 700ms backwards;
+  }
+
+  .hero-cta :global(.btn) {
+    padding: clamp(0.85rem, 1.3vw, 1rem) clamp(1.35rem, 2.2vw, 1.75rem);
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    gap: 0.6rem;
+  }
+
+  /* full-bleed ASCII atmosphere; soft fade into the next section */
+  .hero-art {
+    position: absolute;
+    /* top ~80% of the hero, fading out behind the headline */
+    inset: 0 0 20%;
+    z-index: -1;
+    -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 35%);
+    mask-image: linear-gradient(0deg, transparent 0%, #000 35%);
+    animation: art-in 1.6s var(--ease-out) backwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    translate: -50% 0;
+    display: flex;
+    justify-content: center;
+    width: 1.75rem;
+    height: 2.8rem;
+    padding-top: 0.55rem;
+    border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    animation: fade-up 1s var(--ease-out) 1s backwards;
+    transition: background var(--dur-fast);
+  }
+
+  .scroll-hint:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .scroll-hint span {
+    width: 0.25rem;
+    height: 0.55rem;
+    border-radius: var(--r-pill);
+    background: var(--accent-300);
+    animation: scroll-dot 1.8s var(--ease-out) infinite;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  @keyframes art-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes scroll-dot {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(0.8rem);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .scroll-hint {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-hi,
+    .hero-sub,
+    .hero-cta,
+    .hero-art,
+    .scroll-hint,
+    .scroll-hint span {
+      animation: none;
+    }
+  }
+</style>

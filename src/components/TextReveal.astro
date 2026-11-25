@@ -1,0 +1,67 @@
+---
+/**
+ * Letters rise out of a clipping mask one after another.
+ * Pure CSS, so it plays before any JavaScript loads.
+ */
+interface Props {
+  text: string;
+  class?: string;
+  delay?: number; // ms before the first letter
+  stagger?: number; // ms between letters
+  accent?: string; // characters to tint with the accent gradient
+  solid?: string; // characters to render in plain white, e.g. "."
+}
+
+const { text, class: className, delay = 0, stagger = 35, accent = "", solid = "." } = Astro.props;
+const letters = [...text];
+---
+
+<span class:list={["reveal", className]} aria-label={text}>
+  {
+    letters.map((ch, i) => (
+      <span class="reveal-mask" aria-hidden="true">
+        <span class:list={["reveal-char", solid.includes(ch) ? "solid" : accent.includes(ch) ? "accent" : "gradient-text"]} style={`--d: ${delay + i * stagger}ms`}>
+          {ch === " " ? " " : ch}
+        </span>
+      </span>
+    ))
+  }
+</span>
+
+<style>
+  .reveal {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+
+  .reveal-mask {
+    display: inline-block;
+    overflow: clip;
+    overflow-clip-margin: 0.05em;
+    padding-block: 0.08em 0.12em;
+    margin-block: -0.08em -0.12em;
+  }
+
+  .reveal-char {
+    display: inline-block;
+    animation: rise 1100ms var(--ease-out) backwards;
+    animation-delay: var(--d);
+  }
+
+  .solid {
+    color: #fff;
+  }
+
+  /* start far enough down that ascenders (k, i-dot) poking above the tight line box stay hidden too */
+  @keyframes rise {
+    from {
+      transform: translateY(140%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-char {
+      animation: none;
+    }
+  }
+</style>

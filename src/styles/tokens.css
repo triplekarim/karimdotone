@@ -1,0 +1,75 @@
+:root {
+  /* ---------- colour ---------- */
+  --bg: #000;
+  --surface-1: #050508;
+  --surface-2: #0a0a0f;
+  --surface-3: #111118;
+
+  /* deep violet scale */
+  --accent-950: #0d0420;
+  --accent-900: #1a0838;
+  --accent-800: #2a0d5c;
+  --accent-700: #3b1286;
+  --accent-600: #5218b8;
+  --accent-500: #6d28d9;
+  --accent-400: #8b5cf6;
+  --accent-300: #c4b5fd;
+  --glow: rgba(91, 33, 182, 0.35);
+
+  --text: #f4f3f8;
+  --text-muted: #8e8b99;
+  --text-faint: #5c5a66;
+
+  /* ---------- gradients ---------- */
+  --grad-accent: linear-gradient(135deg, #6d28d9 0%, #3b1286 60%, #1a0838 100%);
+  --grad-accent-hover: linear-gradient(135deg, #7c3aed 0%, #4c1d95 60%, #2a0d5c 100%);
+  --grad-text: linear-gradient(180deg, #ffffff 35%, #ddd8ee 100%);
+  --grad-text-accent: linear-gradient(180deg, #c4b5fd 0%, #7c3aed 100%);
+  /* tonal fills (white over black) used instead of outlines */
+  --fill-1: rgba(255, 255, 255, 0.02);
+  --fill-2: rgba(255, 255, 255, 0.04);
+  --fill-3: rgba(255, 255, 255, 0.07);
+  /* card surface: near-black with a faint violet cast */
+  --card-bg: linear-gradient(180deg, rgba(76, 29, 149, 0.07), rgba(26, 8, 56, 0.03) 60%), rgba(255, 255, 255, 0.01);
+  --card-bg-hover: linear-gradient(180deg, rgba(76, 29, 149, 0.11), rgba(26, 8, 56, 0.05) 60%), rgba(255, 255, 255, 0.015);
+
+  /* frosted glass */
+  --glass-bg: rgba(12, 11, 18, 0.45);
+  --glass-blur: blur(20px) saturate(140%);
+
+  /* ---------- shape ---------- */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+
+  /* ---------- type ---------- */
+  --font-display: "Montserrat Variable", "Inter Variable", system-ui, sans-serif;
+  --font-body: "Inter Variable", "Inter", "Roboto", system-ui, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+
+  /* ---------- layout ---------- */
+  --container: 72rem;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --section-gap: clamp(6rem, 14vw, 10rem);
+
+  /* ---------- motion ---------- */
+  /* soft spring: a touch of overshoot, settles quickly */
+  --ease-spring: linear(
+    0, 0.009, 0.037 2.7%, 0.149 5.7%, 0.592 15.6%, 0.784 21.3%, 0.906 27.2%,
+    0.974 33%, 1.004 38.5%, 1.015 44.6%, 1.012 52.6%, 1.002 70.3%, 1
+  );
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 250ms;
+  --dur: 600ms;
+  --dur-slow: 1100ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ease-spring: ease-out;
+    --dur: 1ms;
+    --dur-slow: 1ms;
+  }
+}

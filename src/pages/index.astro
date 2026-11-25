@@ -1,0 +1,73 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Icon from "../components/Icon.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import PostCard from "../components/PostCard.astro";
+import { getPosts, getProjects } from "../lib/content";
+
+const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 3);
+const latest = (await getPosts()).slice(0, 3);
+---
+
+<Base>
+  <Hero />
+  <About />
+
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="section-index">02 — Projects</p>
+          <h2 class="gradient-text">Selected work</h2>
+        </div>
+        <a href="/projects" class="btn">All projects <Icon name="arrow-right" /></a>
+      </div>
+      <div class="grid-3" data-reveal-stagger>
+        {featured.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="blog" class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="section-index">03 — Blog</p>
+          <h2 class="gradient-text">My Ramblings</h2>
+        </div>
+        <a href="/blog" class="btn">All posts <Icon name="arrow-right" /></a>
+      </div>
+      {
+        latest.length > 0 ? (
+          <div class="stack" data-reveal-stagger>
+            {latest.map((post) => <PostCard post={post} />)}
+          </div>
+        ) : (
+          <p class="muted">Nothing yet.</p>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* first project (tripleManta) gets the wide slot */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 52rem) {
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .stack {
+    display: grid;
+    gap: 1rem;
+  }
+</style>

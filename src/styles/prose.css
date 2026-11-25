@@ -1,0 +1,129 @@
+.prose {
+  color: #d4d4d8;
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.prose > * + * {
+  margin-top: 1.4em;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--text);
+  margin-top: 2.2em;
+}
+
+.prose h2 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  letter-spacing: -0.03em;
+}
+
+.prose h3 {
+  font-size: 1.4rem;
+}
+
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: 0.8em;
+}
+
+.prose a {
+  color: var(--accent-300);
+  text-decoration: underline;
+  text-decoration-color: rgba(139, 92, 246, 0.45);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+  transition: text-decoration-color var(--dur-fast), color var(--dur-fast);
+}
+
+.prose a:hover {
+  color: #fff;
+  text-decoration-color: var(--accent-400);
+}
+
+.prose strong {
+  color: var(--text);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25em;
+}
+
+.prose li + li {
+  margin-top: 0.4em;
+}
+
+.prose li::marker {
+  color: var(--accent-400);
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, rgba(76, 29, 149, 0.35), rgba(26, 8, 56, 0.35));
+  color: var(--text);
+}
+
+.prose blockquote > * + * {
+  margin-top: 0.75em;
+}
+
+.prose :not(pre) > code {
+  padding: 0.15em 0.45em;
+  border-radius: var(--r-xs);
+  background: var(--fill-2);
+  color: var(--accent-300);
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+.prose pre {
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--r-md);
+  background: var(--fill-1) !important; /* override Shiki theme bg with ours */
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  overflow-x: auto;
+}
+
+.prose img {
+  height: auto;
+  border-radius: var(--r-lg);
+}
+
+.prose hr {
+  border: 0;
+  height: 1px;
+  background: var(--fill-3);
+  margin-block: 3em;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--fill-1);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.prose th,
+.prose td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+}
+
+.prose tbody tr:nth-child(even) {
+  background: var(--fill-1);
+}
+
+.prose th {
+  background: var(--fill-2);
+  color: var(--text);
+}

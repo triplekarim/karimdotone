@@ -1,0 +1,167 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import "../../styles/prose.css";
+import { formatDate, getPosts, readingTime, type Post } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
+}
+
+interface Props {
+  post: Post;
+  newer?: Post;
+  older?: Post;
+}
+
+const { post, newer, older } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, cover } = post.data;
+const { Content } = await render(post);
+import Nav from "../../components/Nav.jsx";
+---
+
+<Base title={title} description={description} type="article">
+  <article class="post container">
+    <header class="post-header">
+      <Nav client:load transition:persist="nav" initialPath={Astro.url.pathname} />
+      <div class="post-meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime(post.body)}</span>
+        {
+          updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Updated {formatDate(updatedDate)}</span>
+            </>
+          )
+        }
+      </div>
+      <h1 class="gradient-text" transition:name={`post-title-${post.id}`}>{title}</h1>
+      <p class="post-lead muted">{description}</p>
+      {
+        tags.length > 0 && (
+          <ul class="tag-list">
+            {tags.map((t) => <li class="tag">#{t}</li>)}
+          </ul>
+        )
+      }
+    </header>
+
+    {cover && <Image src={cover} alt="" class="post-cover" />}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <nav class="post-nav" aria-label="More posts">
+      {
+        older ? (
+          <a href={`/blog/${older.id}/`} class="post-nav-link">
+            <span class="muted">← Older</span>
+            <strong>{older.data.title}</strong>
+          </a>
+        ) : <span />
+      }
+      {
+        newer && (
+          <a href={`/blog/${newer.id}/`} class="post-nav-link next">
+            <span class="muted">Newer →</span>
+            <strong>{newer.data.title}</strong>
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .post {
+    max-width: 46rem;
+    padding-block: clamp(2rem, 4vw, 3rem) calc(var(--section-gap) / 2);
+  }
+
+  .post-header :global(.nav) {
+    margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    color: var(--text-faint);
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    /* hug the text, so the title morph to/from its card scales the words, not a wide box */
+    width: fit-content;
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
+    line-height: 1.1; /* line-height and letter-spacing must match the card title, */
+    letter-spacing: -0.03em; /* or the morph jumps at the end */
+  }
+
+  .post-lead {
+    margin: 1.25rem 0 1.5rem;
+    font-size: 1.1875rem;
+  }
+
+  .post-header {
+    padding-bottom: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-cover {
+    width: 100%;
+    height: auto;
+    border-radius: var(--r-lg);
+    margin-bottom: 2.5rem;
+  }
+
+  .post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 4rem;
+  }
+
+  .post-nav-link {
+    display: grid;
+    gap: 0.35rem;
+    padding-block: 1rem;
+    color: var(--text);
+  }
+
+  .post-nav-link strong {
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .post-nav-link:hover strong {
+    color: var(--accent-300);
+  }
+
+  .post-nav-link.next {
+    text-align: right;
+    grid-column: 2;
+  }
+
+  .post-nav-link span {
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 36rem) {
+    .post-nav {
+      grid-template-columns: 1fr;
+    }
+
+    .post-nav-link.next {
+      grid-column: auto;
+    }
+  }
+</style>

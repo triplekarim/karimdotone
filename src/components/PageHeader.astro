@@ -1,0 +1,67 @@
+---
+import TextReveal from "./TextReveal.astro";
+import Nav from "./Nav.jsx";
+
+interface Props {
+  title: string;
+  lead?: string;
+}
+
+const { title, lead } = Astro.props;
+---
+
+<header class="page-header">
+  <svg class="page-header-art" viewBox="0 0 600 600" fill="none" aria-hidden="true">
+    <defs>
+      <radialGradient id="ph-glow">
+        <stop offset="0" stop-color="#5218b8" stop-opacity="0.25" />
+        <stop offset="1" stop-color="#5218b8" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="ph-ring" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.14" />
+        <stop offset="1" stop-color="#7c3aed" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <circle cx="300" cy="300" r="300" fill="url(#ph-glow)" />
+    {[120, 170, 220, 270].map((r) => <circle cx="300" cy="300" r={r} stroke="url(#ph-ring)" />)}
+  </svg>
+  <div class="container">
+    <Nav client:load transition:persist="nav" initialPath={Astro.url.pathname} />
+    <h1><TextReveal text={title} /></h1>
+    {lead && <p class="lead muted">{lead}</p>}
+  </div>
+</header>
+
+<style>
+  .page-header {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(2rem, 4vw, 3rem) clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .page-header-art {
+    position: absolute;
+    z-index: -1;
+    top: -12rem;
+    right: -10rem;
+    width: min(40rem, 110vw);
+    pointer-events: none;
+  }
+
+  /* the nav replaces the old eyebrow; give the heading some air below it */
+  .page-header :global(.nav) {
+    margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  h1 {
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    line-height: 0.95;
+  }
+
+  .lead {
+    max-width: 32rem;
+    margin-top: 1.25rem;
+    font-size: 1.125rem;
+  }
+</style>

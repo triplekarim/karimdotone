@@ -1,0 +1,53 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import TextReveal from "../components/TextReveal.astro";
+---
+
+<Base title="Not found">
+  <section class="lost container">
+    <div class="lost-art" aria-hidden="true"></div>
+    <h1><TextReveal text="404" /></h1>
+    <p class="lead">This isn't the <span class="accent">.one</span> you're looking for.</p>
+    <a href="/" class="btn btn-primary">Back home <Icon name="arrow-right" /></a>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    position: relative;
+    isolation: isolate;
+    min-height: 90svh;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1.5rem;
+    text-align: center;
+    padding-top: 6rem;
+  }
+
+  .lost-art {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: min(34rem, 90vw);
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.012),
+      0 0 0 8rem rgba(255, 255, 255, 0.008);
+    background: radial-gradient(closest-side, rgba(82, 24, 184, 0.18), transparent);
+  }
+
+  h1 {
+    font-size: clamp(6rem, 24vw, 12rem);
+    line-height: 0.9;
+  }
+
+  .lead {
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    color: var(--text-muted);
+  }
+</style>

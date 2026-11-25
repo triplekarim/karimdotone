@@ -1,0 +1,95 @@
+---
+import Icon from "./Icon.astro";
+import { formatDate, readingTime, type Post } from "../lib/content";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, tags, draft } = post.data;
+---
+
+<article class="post" data-reveal>
+  <div class="post-meta">
+    <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+    <span aria-hidden="true">·</span>
+    <span>{readingTime(post.body)}</span>
+    {draft && <span class="tag">draft</span>}
+  </div>
+  <h3 transition:name={`post-title-${post.id}`}>
+    <a href={`/blog/${post.id}/`} class="stretched">{title}<span class="post-arrow" aria-hidden="true"><Icon name="arrow-right" /></span></a>
+  </h3>
+  <p class="muted">{description}</p>
+  {
+    tags.length > 0 && (
+      <ul class="tag-list">
+        {tags.map((t) => <li class="tag">#{t}</li>)}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  .post {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding-block: 1.25rem;
+  }
+
+  /* hug the text, so the title morph to/from the post page scales the words */
+  h3 {
+    width: fit-content;
+    line-height: 1.1; /* line-height and letter-spacing must match the post title, */
+    letter-spacing: -0.03em; /* or the morph jumps at the end */
+  }
+
+  h3 a {
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .post:hover h3 a {
+    color: var(--accent-300);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-faint);
+    font-size: 0.875rem;
+  }
+
+  h3 a {
+    color: var(--text);
+  }
+
+  .stretched::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  /* small arrow that slides in after the title on hover */
+  .post-arrow {
+    display: inline-flex;
+    margin-left: 0.4em;
+    font-size: 0.8em;
+    vertical-align: middle;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      transform var(--dur) var(--ease-spring);
+  }
+
+  .post:hover .post-arrow,
+  .post:focus-within .post-arrow {
+    opacity: 1;
+    transform: none;
+  }
+</style>

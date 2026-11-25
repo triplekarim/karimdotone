@@ -1,0 +1,68 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "@fontsource-variable/montserrat";
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import { SITE } from "../site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = "/og-image.png",
+  type = "website",
+} = Astro.props;
+
+const fullTitle = title ? `${title} · ${SITE.domain}` : SITE.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.domain} blog`} href="/rss.xml" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      document.documentElement.classList.remove("no-js");
+      document.addEventListener("astro:after-swap", () =>
+        document.documentElement.classList.remove("no-js"),
+      );
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import "../scripts/reveal.js";
+    </script>
+  </body>
+</html>

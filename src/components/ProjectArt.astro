@@ -1,0 +1,113 @@
+---
+/**
+ * Generated cover art for a project card. Deterministic per title,
+ * so each project keeps its own pattern without needing an image.
+ */
+interface Props {
+  seed: string;
+}
+
+const { seed } = Astro.props;
+
+let h = 2166136261;
+for (const ch of seed) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
+const rand = (() => {
+  let s = h || 1;
+  return () => ((s = Math.imul(s ^ (s >>> 15), 2246822507) ^ Math.imul(s ^ (s >>> 13), 3266489909)), (s >>>= 0), s / 4294967296);
+})();
+
+const id = `pa-${h.toString(36)}`;
+const variant = h % 3;
+const W = 400;
+const H = 180;
+
+// rings: concentric arcs from an off-canvas centre
+const ringCx = 260 + rand() * 120;
+const ringCy = 150 + rand() * 60;
+const rings = Array.from({ length: 9 }, (_, i) => 24 + i * 26);
+
+// grid: dots fading toward a glowing point
+const orbX = 80 + rand() * 240;
+const orbY = 50 + rand() * 80;
+const dots: { x: number; y: number; o: number }[] = [];
+for (let x = 14; x < W; x += 22) {
+  for (let y = 14; y < H; y += 22) {
+    const d = Math.hypot(x - orbX, y - orbY);
+    dots.push({ x, y, o: Math.max(0.06, 1 - d / 220) });
+  }
+}
+
+// waves: stacked sine lines
+const amp = 14 + rand() * 18;
+const freq = 1.2 + rand() * 1.6;
+const phase = rand() * Math.PI * 2;
+const waves = Array.from({ length: 7 }, (_, i) => {
+  const y0 = 40 + i * 18;
+  let d = "";
+  for (let x = 0; x <= W; x += 8) {
+    const y = y0 + Math.sin((x / W) * Math.PI * 2 * freq + phase + i * 0.35) * amp * (0.5 + i / 10);
+    d += `${x === 0 ? "M" : "L"}${x} ${y.toFixed(1)}`;
+  }
+  return { d, o: 0.25 + i * 0.1 };
+});
+---
+
+<svg class="project-art" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d0420" />
+      <stop offset="0.6" stop-color="#06040c" />
+      <stop offset="1" stop-color="#030305" />
+    </linearGradient>
+    <linearGradient id={`${id}-line`} x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c3aed" stop-opacity="0" />
+      <stop offset="0.5" stop-color="#a78bfa" />
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0.2" />
+    </linearGradient>
+    <radialGradient id={`${id}-orb`}>
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0.45" />
+      <stop offset="0.3" stop-color="#5218b8" stop-opacity="0.3" />
+      <stop offset="1" stop-color="#5218b8" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width={W} height={H} fill={`url(#${id}-bg)`} />
+
+  {
+    variant === 0 && (
+      <g fill="none">
+        <circle cx={ringCx} cy={ringCy} r="110" fill={`url(#${id}-orb)`} opacity="0.5" />
+        {rings.map((r, i) => (
+          <circle cx={ringCx} cy={ringCy} r={r} stroke="#a78bfa" stroke-opacity={0.3 - i * 0.03} stroke-width="1" />
+        ))}
+      </g>
+    )
+  }
+  {
+    variant === 1 && (
+      <g>
+        <circle cx={orbX} cy={orbY} r="90" fill={`url(#${id}-orb)`} />
+        {dots.map((p) => (
+          <circle cx={p.x} cy={p.y} r="1.4" fill="#c4b5fd" opacity={(p.o * 0.6).toFixed(2)} />
+        ))}
+      </g>
+    )
+  }
+  {
+    variant === 2 && (
+      <g fill="none">
+        <ellipse cx={W * 0.7} cy={H * 0.5} rx="160" ry="90" fill={`url(#${id}-orb)`} opacity="0.45" />
+        {waves.map((w) => (
+          <path d={w.d} stroke={`url(#${id}-line)`} stroke-width="1" opacity={w.o * 0.6} />
+        ))}
+      </g>
+    )
+  }
+</svg>
+
+<style>
+  .project-art {
+    width: 100%;
+    height: 100%;
+  }
+</style>
