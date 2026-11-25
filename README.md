@@ -1,6 +1,6 @@
 # karim.one
 
-My personal website: the **.one** and only. Built with [Astro](https://astro.build), with React islands for the interactive parts, an [ogl](https://github.com/oframe/ogl) WebGL shader in the hero, and [Motion](https://motion.dev) springs.
+My personal website: the **.one** and only. Built with [Astro](https://astro.build), with React islands for the interactive parts, a [React Bits](https://reactbits.dev) ASCII shader behind the hero, and [Motion](https://motion.dev) springs.
 
 ## Development
 
@@ -15,7 +15,7 @@ Pushing to `main` deploys to GitHub Pages through `.github/workflows/main.yml`.
 
 ## Writing content
 
-**Blog post:** add `src/content/blog/my-post.md` (or `.mdx`). It's served at `/blog/my-post/`.
+**Blog post:** add `src/content/blog/my-post.md`. It's served at `/blog/my-post/`.
 
 ```md
 ---
@@ -48,9 +48,13 @@ order: 1
 
 | Path | What |
 | --- | --- |
-| `src/site.ts` | Name, links, e-mail, meta description |
+| `src/site.ts` | Name, links, e-mail, legal name and address, meta description |
 | `src/styles/tokens.css` | Colours, radii, fonts, spring easing curves |
-| `src/components/Hero.astro` | Landing hero |
-| `src/components/FluidBackground.jsx` | The WebGL fluid shader |
-| `src/components/About.astro` | About section copy |
+| `src/components/sections/Hero.astro` | Landing hero |
+| `src/components/sections/HeroBackground.jsx` | The ASCII hero background (colours, settings) |
+| `src/components/sections/About.astro` | About section: bio, setup, skill badges, interests |
+| `src/components/layout/` | Nav, footer and page header shared by every page |
+| `src/components/ui/` | Small reusable pieces: icons, cards, text reveal, magnetic button |
+| `src/components/bits/` | Vendored React Bits component (ASCII shader) |
+| `src/layouts/LegalPage.astro` | Shared English/Deutsch shell for the imprint and privacy pages |
 | `src/pages/` | Routes |

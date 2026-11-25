@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, MotionConfig } from "motion/react";
-import "../styles/nav.css";
+import "../../styles/nav.css";
 
 const SECTIONS = [
   { id: "projects", label: "Projects", href: "/projects" },

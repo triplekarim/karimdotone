@@ -1,8 +1,8 @@
 ---
-import TextReveal from "./TextReveal.astro";
+import TextReveal from "../ui/TextReveal.astro";
 import HeroBackground from "./HeroBackground.jsx";
-import MagneticButton from "./MagneticButton.jsx";
-import Icon from "./Icon.astro";
+import MagneticButton from "../ui/MagneticButton.jsx";
+import Icon from "../ui/Icon.astro";
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -19,7 +19,7 @@ import Icon from "./Icon.astro";
 
     <div class="hero-cta">
       <MagneticButton client:visible href="/projects" variant="primary">
-        View projects <Icon name="arrow-right" />
+        My projects <Icon name="arrow-right" />
       </MagneticButton>
       <MagneticButton client:visible href="/blog">Read the blog</MagneticButton>
     </div>

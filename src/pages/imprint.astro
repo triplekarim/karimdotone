@@ -1,56 +1,93 @@
 ---
-import Base from "../layouts/Base.astro";
-import PageHeader from "../components/PageHeader.astro";
-import "../styles/prose.css";
+import LegalPage from "../layouts/LegalPage.astro";
 import { SITE } from "../site";
-
-/*
- * TODO before going live: fill in the [bracketed] placeholders.
- * § 5 DDG requires a full postal address (no P.O. box). Have a quick look at
- * whether you need a VAT ID line; delete it if not.
- */
 ---
 
-<Base title="Imprint" description="Legal notice (Impressum) for karim.one.">
-  <PageHeader title="Imprint." />
-  <section class="container imprint">
-    <div class="prose">
-      <h2>Angaben gemäß § 5 DDG</h2>
-      <p>
-        {SITE.business}<br />
-        Karim Güzel<br />
-        [Straße Hausnummer]<br />
-        [PLZ] Tübingen<br />
-        Deutschland
-      </p>
+<LegalPage title="Imprint" heading="Imprint." description="Legal notice (Impressum) for karim.one.">
+  <Fragment slot="de">
+    <p class="note legal-basis">Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</p>
+    <h2>Diensteanbieter / Websitebetreiber</h2>
+    <p>
+      {SITE.business}<br />
+      Inhaber: {SITE.owner}
+    </p>
 
-      <h2>Kontakt</h2>
-      <p>E-Mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    <h2>Geschäftsanschrift</h2>
+    <p>
+      {SITE.street}<br />
+      {SITE.city}<br />
+      Deutschland
+    </p>
+    <p class="note">(Ladungsfähige Anschrift, kein Postfach.)</p>
 
-      <!-- Delete if you don't have one -->
-      <h2>Umsatzsteuer-ID</h2>
-      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [DE…]</p>
+    <h2>Kontakt</h2>
+    <p>E-Mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
 
-      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
-      <p>
-        Karim Güzel<br />
-        [Anschrift wie oben]
-      </p>
-    </div>
-  </section>
-</Base>
+    <h2>Rechtsform</h2>
+    <p>Einzelunternehmen nach deutschem Recht</p>
 
-<style>
-  .imprint {
-    padding-bottom: 4rem;
-  }
+    <h2>Umsatzsteuer</h2>
+    <p>
+      Kleinunternehmer im Sinne von § 19 Umsatzsteuergesetz (UStG). Gemäß der Kleinunternehmerregelung wird keine
+      Umsatzsteuer ausgewiesen.
+    </p>
 
-  .imprint .prose {
-    max-width: 46rem;
-  }
+    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p>
+      {SITE.owner}<br />
+      {SITE.street}<br />
+      {SITE.city}<br />
+      Deutschland
+    </p>
 
-  .imprint .prose h2 {
-    font-size: 1.25rem;
-    letter-spacing: -0.02em;
-  }
-</style>
+    <h2>Urheberrecht und Haftung für Links</h2>
+    <p>Alle Inhalte dieser Website (einschließlich Texte, Grafiken und Code) sind, soweit anwendbar, urheberrechtlich geschützt.</p>
+    <p>
+      Trotz sorgfältiger inhaltlicher Kontrolle übernehme ich keine Haftung für die Inhalte externer Links. Für den Inhalt
+      der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+    </p>
+  </Fragment>
+
+  <Fragment slot="en">
+    <h2>Service provider / Website owner</h2>
+    <p>
+      {SITE.business}<br />
+      Owner: {SITE.owner}
+    </p>
+
+    <h2>Business address</h2>
+    <p>
+      {SITE.street}<br />
+      {SITE.city}<br />
+      Germany
+    </p>
+    <p class="note">(This is a summonable address, no P.O. Box.)</p>
+
+    <h2>Contact</h2>
+    <p>Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+
+    <h2>Legal form</h2>
+    <p>Sole proprietorship (Einzelunternehmen) under German law</p>
+
+    <h2>VAT status</h2>
+    <p>
+      Small business within the meaning of § 19 German VAT Act (Umsatzsteuergesetz). No VAT is shown on invoices in
+      accordance with the small business regulation (Kleinunternehmerregelung).
+    </p>
+
+    <h2>Person responsible for content pursuant to § 18 II Medienstaatsvertrag (German State Media Treaty, MStV)</h2>
+    <p>
+      {SITE.owner}<br />
+      {SITE.street}<br />
+      {SITE.city}<br />
+      Germany
+    </p>
+
+    <h2>Copyright and liability for links</h2>
+    <p>All content on this website (including text, graphics, and code) is protected by copyright where applicable.</p>
+    <p>
+      Despite careful control of external content, I assume no liability for the content of external links. The operators
+      of the linked pages are solely responsible for their content.
+    </p>
+  </Fragment>
+</LegalPage>

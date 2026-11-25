@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
-import PageHeader from "../../components/PageHeader.astro";
-import ProjectCard from "../../components/ProjectCard.astro";
+import PageHeader from "../../components/layout/PageHeader.astro";
+import ProjectCard from "../../components/ui/ProjectCard.astro";
 import { getProjects } from "../../lib/content";
 
 const projects = await getProjects();

@@ -1,6 +1,6 @@
 ---
-import Icon from "./Icon.astro";
-import { SITE } from "../site";
+import Icon from "../ui/Icon.astro";
+import { SITE } from "../../site";
 
 const year = new Date().getFullYear();
 ---
@@ -11,6 +11,8 @@ const year = new Date().getFullYear();
       <p class="footer-copy">© {year} {SITE.business}</p>
       <span aria-hidden="true">·</span>
       <a class="footer-legal" href="/imprint">Imprint</a>
+      <span aria-hidden="true">·</span>
+      <a class="footer-legal" href="/privacy">Privacy</a>
     </div>
     <ul class="footer-links">
       <li>

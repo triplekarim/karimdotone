@@ -8,6 +8,10 @@ export const SITE = {
   location: "Tübingen, Germany",
   role: "Computer Science Student",
   business: "Karim Güzel Creative Labs",
+  // legal name and postal address, used by the imprint and privacy pages
+  owner: "Ali Karim Güzel",
+  street: "Ihlinger Straße 112",
+  city: "72160 Horb a. N.",
   email: "karim@triplemanta.com",
   github: "https://github.com/triplekarim",
 };

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import GradientASCII from "./bits/GradientASCII.jsx";
+import GradientASCII from "../bits/GradientASCII.jsx";
 
 /**
  * The landing page ASCII background: React Bits' "Atmosphere" preset

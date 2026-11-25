@@ -1,0 +1,144 @@
+---
+import LegalPage from "../layouts/LegalPage.astro";
+import { SITE } from "../site";
+
+const updated = "November 2026";
+const githubPrivacy = "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement";
+const authority = "https://www.baden-wuerttemberg.datenschutz.de";
+---
+
+<LegalPage title="Privacy" heading="Privacy." description="Privacy policy (Datenschutzerklärung) for karim.one.">
+  <Fragment slot="de">
+    <p class="note legal-basis">Datenschutzerklärung · Stand: {updated}</p>
+    <h2>Kurz gesagt</h2>
+    <p>
+      Diese Website setzt keine Cookies, verwendet kein Tracking und keine Analyse-Tools und lädt keine Inhalte von
+      Drittanbietern (Schriftarten werden lokal ausgeliefert). Personenbezogene Daten fallen nur beim Hosting und bei
+      Kontakt per E-Mail an.
+    </p>
+
+    <h2>Verantwortlicher</h2>
+    <p>
+      {SITE.owner}<br />
+      {SITE.street}<br />
+      {SITE.city}<br />
+      Deutschland<br />
+      E-Mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
+
+    <h2>Hosting und Server-Logfiles</h2>
+    <p>
+      Diese Website wird über GitHub Pages gehostet, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San
+      Francisco, CA 94107, USA. Beim Aufruf der Website verarbeitet GitHub technisch notwendige Daten, insbesondere Ihre
+      IP-Adresse, Datum und Uhrzeit des Zugriffs, die aufgerufene Seite, die zuvor besuchte Seite (Referrer) sowie
+      Browser und Betriebssystem. Diese Daten werden benötigt, um die Website auszuliefern und ihre Sicherheit zu
+      gewährleisten.
+    </p>
+    <p>
+      Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse liegt in der sicheren und zuverlässigen
+      Bereitstellung der Website. Dabei können Daten in die USA übermittelt werden. GitHub ist unter dem EU-US Data
+      Privacy Framework zertifiziert, für das ein Angemessenheitsbeschluss der EU-Kommission besteht. Weitere
+      Informationen finden Sie in der <a href={githubPrivacy} target="_blank" rel="noopener noreferrer">Datenschutzerklärung von GitHub</a>.
+    </p>
+
+    <h2>Lokale Speicherung im Browser</h2>
+    <p>
+      Wenn Sie auf den Rechtsseiten die Sprache umschalten, wird Ihre Auswahl im lokalen Speicher (localStorage) Ihres
+      Browsers abgelegt, damit sie beim nächsten Besuch erhalten bleibt. Diese Information verlässt Ihr Gerät nicht und
+      wird nicht an mich übertragen. Sie können sie jederzeit über die Einstellungen Ihres Browsers löschen.
+    </p>
+
+    <h2>Kontakt per E-Mail</h2>
+    <p>
+      Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Adresse und den Inhalt Ihrer Nachricht, um Ihre Anfrage zu
+      beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO bzw., wenn es um einen Vertrag geht, Art. 6 Abs. 1 lit.
+      b DSGVO. Die Daten werden gelöscht, sobald sie nicht mehr benötigt werden und keine gesetzlichen
+      Aufbewahrungspflichten entgegenstehen.
+    </p>
+
+    <h2>Externe Links</h2>
+    <p>
+      Diese Website enthält Links zu anderen Websites, z. B. GitHub. Erst wenn Sie einen solchen Link anklicken, werden
+      Daten an den jeweiligen Anbieter übertragen; für deren Verarbeitung ist der Betreiber der verlinkten Seite
+      verantwortlich.
+    </p>
+
+    <h2>Ihre Rechte</h2>
+    <p>
+      Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der
+      Verarbeitung (Art. 18) und Datenübertragbarkeit (Art. 20). Gegen eine Verarbeitung auf Grundlage von Art. 6 Abs. 1
+      lit. f DSGVO können Sie aus Gründen, die sich aus Ihrer besonderen Situation ergeben, Widerspruch einlegen (Art.
+      21). Eine formlose E-Mail an mich genügt.
+    </p>
+    <p>
+      Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für mich zuständig ist
+      der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg,
+      Lautenschlagerstraße 20, 70173 Stuttgart (<a href={authority} target="_blank" rel="noopener noreferrer">baden-wuerttemberg.datenschutz.de</a>).
+    </p>
+  </Fragment>
+
+  <Fragment slot="en">
+    <p class="note legal-basis">Privacy policy · Last updated: {updated}</p>
+    <h2>In short</h2>
+    <p>
+      This website sets no cookies, uses no tracking or analytics, and loads nothing from third parties (fonts are served
+      locally). Personal data is only processed by the hosting provider and when you contact me by email.
+    </p>
+
+    <h2>Controller</h2>
+    <p>
+      {SITE.owner}<br />
+      {SITE.street}<br />
+      {SITE.city}<br />
+      Germany<br />
+      Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
+
+    <h2>Hosting and server log files</h2>
+    <p>
+      This website is hosted on GitHub Pages, a service of GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA
+      94107, USA. When you visit the site, GitHub processes technically necessary data, in particular your IP address, the
+      date and time of access, the page requested, the previously visited page (referrer), and your browser and operating
+      system. This data is needed to deliver the website and keep it secure.
+    </p>
+    <p>
+      The legal basis is Art. 6(1)(f) GDPR; my legitimate interest is providing the website securely and reliably. Data
+      may be transferred to the USA in the process. GitHub is certified under the EU-US Data Privacy Framework, which is
+      covered by an adequacy decision of the European Commission. For details, see
+      <a href={githubPrivacy} target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.
+    </p>
+
+    <h2>Local storage in your browser</h2>
+    <p>
+      If you switch the language on the legal pages, your choice is saved in your browser's local storage so it's
+      remembered next time. This information never leaves your device and is not sent to me. You can delete it at any
+      time in your browser settings.
+    </p>
+
+    <h2>Contact by email</h2>
+    <p>
+      If you email me, I process your address and the content of your message to answer your request. The legal basis is
+      Art. 6(1)(f) GDPR or, where a contract is concerned, Art. 6(1)(b) GDPR. The data is deleted once it is no longer
+      needed, unless statutory retention obligations apply.
+    </p>
+
+    <h2>External links</h2>
+    <p>
+      This website links to other websites, such as GitHub. Data is only transferred to those providers once you click
+      such a link; the operator of the linked site is responsible for its processing.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      You have the right of access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction of processing
+      (Art. 18) and data portability (Art. 20). You can object to processing based on Art. 6(1)(f) GDPR on grounds
+      relating to your particular situation (Art. 21). An informal email to me is enough.
+    </p>
+    <p>
+      You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR). The
+      authority responsible for me is the State Commissioner for Data Protection and Freedom of Information of
+      Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart, Germany
+      (<a href={authority} target="_blank" rel="noopener noreferrer">baden-wuerttemberg.datenschutz.de</a>).
+    </p>
+  </Fragment>
+</LegalPage>

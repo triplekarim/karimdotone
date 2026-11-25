@@ -22,7 +22,7 @@ interface Props {
 const { post, newer, older } = Astro.props;
 const { title, description, pubDate, updatedDate, tags, cover } = post.data;
 const { Content } = await render(post);
-import Nav from "../../components/Nav.jsx";
+import Nav from "../../components/layout/Nav.jsx";
 ---
 
 <Base title={title} description={description} type="article">

@@ -1,0 +1,175 @@
+---
+/**
+ * Shell for the bilingual legal pages (imprint, privacy): page header, an English/Deutsch
+ * switch, and the two language versions passed in as the "en" and "de" slots.
+ */
+import Base from "./Base.astro";
+import PageHeader from "../components/layout/PageHeader.astro";
+import "../styles/prose.css";
+
+interface Props {
+  title: string;
+  heading: string;
+  description: string;
+}
+
+const { title, heading, description } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <PageHeader title={heading} />
+  <section class="container legal">
+    <div class="lang-switch" role="group" aria-label="Language / Sprache">
+      <button type="button" data-lang="en" aria-pressed="false">
+        <svg class="lang-icon globe" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+        </svg>
+        English
+      </button>
+      <button type="button" data-lang="de" aria-pressed="true">
+        <svg class="lang-icon flag" viewBox="0 0 5 3" aria-hidden="true">
+          <rect width="5" height="1" fill="#000" />
+          <rect y="1" width="5" height="1" fill="#DD0000" />
+          <rect y="2" width="5" height="1" fill="#FFCE00" />
+        </svg>
+        Deutsch
+      </button>
+    </div>
+
+    <div class="prose" lang="de" data-legal="de">
+      <slot name="de" />
+    </div>
+
+    <div class="prose" lang="en" data-legal="en" hidden>
+      <slot name="en" />
+    </div>
+
+    <script is:inline>
+      // Runs right after the markup (before first paint) so the chosen language never flashes.
+      // Picks the saved choice, else the browser language; without JS the German text shows.
+      // The choice is shared between all legal pages.
+      (() => {
+        const root = document.currentScript.closest(".legal");
+        const set = (lang) => {
+          root.querySelectorAll("[data-legal]").forEach((el) => (el.hidden = el.dataset.legal !== lang));
+          root.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+        };
+        let saved = null;
+        try {
+          saved = localStorage.getItem("legal-lang");
+        } catch {}
+        set(saved || (navigator.language.toLowerCase().startsWith("de") ? "de" : "en"));
+        root.querySelectorAll("[data-lang]").forEach((b) =>
+          b.addEventListener("click", () => {
+            set(b.dataset.lang);
+            try {
+              localStorage.setItem("legal-lang", b.dataset.lang);
+            } catch {}
+          }),
+        );
+      })();
+    </script>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    padding-bottom: 4rem;
+  }
+
+  .legal .prose {
+    max-width: 46rem;
+  }
+
+  /* slotted content keeps the page's scope, so these reach into it with :global */
+  .legal .prose :global(h2) {
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* the first heading's usual top margin would double up with the switch's own spacing */
+  .legal .prose > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  .legal .prose :global(.note) {
+    font-size: 0.875rem;
+    color: var(--text-faint);
+  }
+
+  /* an aside right after a paragraph belongs to it (e.g. "no P.O. box" under the address) */
+  .legal .prose :global(p + .note) {
+    margin-top: 0.4rem;
+  }
+
+  .legal .prose :global(.legal-basis + h2) {
+    margin-top: 0.9rem;
+  }
+
+  /* segmented language toggle */
+  .lang-switch {
+    display: inline-flex;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    padding: 0.25rem;
+    border-radius: var(--r-pill);
+    background: var(--fill-2);
+    box-shadow: inset 0 0 0 1px var(--fill-3);
+  }
+
+  .lang-switch button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem 0.5rem 0.9rem;
+    border: 0;
+    border-radius: var(--r-pill);
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  .lang-icon {
+    flex: none;
+    height: 0.8rem;
+  }
+
+  .lang-icon.globe {
+    width: 0.95rem;
+    height: 0.95rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+
+  .lang-icon.flag {
+    width: calc(0.8rem * 5 / 3);
+    border-radius: 2px;
+    /* the black stripe disappears on the dark background without a hairline */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+  }
+
+  .lang-switch button:hover {
+    color: var(--text);
+  }
+
+  .lang-switch button[aria-pressed="true"] {
+    background: var(--grad-accent);
+    color: var(--text);
+    box-shadow: 0 8px 24px -12px var(--glow);
+  }
+
+  .lang-switch button:focus-visible {
+    outline: 2px solid var(--accent-400);
+    outline-offset: 2px;
+  }
+</style>

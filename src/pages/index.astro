@@ -1,10 +1,10 @@
 ---
 import Base from "../layouts/Base.astro";
-import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Icon from "../components/Icon.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import PostCard from "../components/PostCard.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import Icon from "../components/ui/Icon.astro";
+import ProjectCard from "../components/ui/ProjectCard.astro";
+import PostCard from "../components/ui/PostCard.astro";
 import { getPosts, getProjects } from "../lib/content";
 
 const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 3);

@@ -3,7 +3,7 @@ import { ClientRouter } from "astro:transitions";
 import "@fontsource-variable/montserrat";
 import "@fontsource-variable/inter";
 import "../styles/global.css";
-import Footer from "../components/Footer.astro";
+import Footer from "../components/layout/Footer.astro";
 import { SITE } from "../site";
 
 interface Props {
@@ -33,7 +33,9 @@ const ogImage = new URL(image, Astro.site);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={`${SITE.domain} blog`} href="/rss.xml" />
     <meta name="theme-color" content="#000000" />
