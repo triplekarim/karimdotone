@@ -1,3 +1,5 @@
+![karim.one](public/og.jpg)
+
 # karim.one
 
 My personal website: the **.one** and only. Built with [Astro](https://astro.build), with React islands for the interactive parts, a [React Bits](https://reactbits.dev) ASCII shader behind the hero, and [Motion](https://motion.dev) springs.
