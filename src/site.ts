@@ -4,7 +4,7 @@ export const SITE = {
   url: "https://karim.one",
   title: "Karim — the .one and only",
   description:
-    "CS student in Tübingen. Roblox dev, Linux nerd, tinkerer.",
+    "My portfolio and personal website. I study CS in Tübingen, Germany and love rambling about rabbitholes I fell into. Check out the website for projects I've actually got around to somewhat finish and random blog posts.",
   location: "Tübingen, Germany",
   role: "Computer Science Student",
   business: "Karim Güzel Creative Labs",
